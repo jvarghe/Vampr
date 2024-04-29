@@ -68,7 +68,7 @@ class Vampire {
 
   // Returns the total number of vampires created by that vampire
   get numberOfOffspring() {
-
+    return this.offspring.length;
   }
 
 
@@ -129,8 +129,10 @@ ansel.addOffspring(sarah);
 elgort.addOffspring(andrew);
 
 
+
 // DRIVER CODE:
-console.log(originalVampire.addOffspring(ansel));
+// console.log(originalVampire.addOffspring(ansel));
+// console.log(ansel.numberOfOffspring);
 
 
 module.exports = Vampire;
