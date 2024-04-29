@@ -15,7 +15,6 @@
  * be able to quickly determine a vampire's lineage relative to any other
  * vampire. This app will need to be able to answer the following questions:
  *
- *
  *   * Who is a vampire's creator?
  *   * How many vampires has a vampire created?
  *   * How many vampires away from the original vampire is a vampire?
@@ -29,7 +28,6 @@
  *     it easy to answer these questions. You may have noticed that there are
  *     aspects of our previous "Org Chart" exercise that we can use in the
  *     development of Vampr.
- *
  *
  * The vampire's lineage is best represented by a tree structure:
  *
