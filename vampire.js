@@ -60,7 +60,9 @@ class Vampire {
 
   // Adds the vampire as an offspring of this vampire
   addOffspring(vampire) {
-
+    vampire.creator = this;
+    this.offspring.push(vampire);
+    return vampire;
   }
 
 
@@ -125,6 +127,10 @@ ansel.addOffspring(sarah);
 
 // Link the fourth layer to the third layer.
 elgort.addOffspring(andrew);
+
+
+// DRIVER CODE:
+console.log(originalVampire.addOffspring(ansel));
 
 
 module.exports = Vampire;
