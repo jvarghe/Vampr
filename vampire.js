@@ -63,20 +63,24 @@ class Vampire {
 
   }
 
+
   // Returns the total number of vampires created by that vampire
   get numberOfOffspring() {
 
   }
+
 
   // Returns the number of vampires away from the original vampire this vampire is
   get numberOfVampiresFromOriginal() {
 
   }
 
+
   // Returns true if this vampire is more senior than the other vampire. (Who is closer to the original vampire)
   isMoreSeniorThan(vampire) {
 
   }
+
 
   /** Stretch **/
 
@@ -89,6 +93,39 @@ class Vampire {
 
   }
 }
+
+
+// CREATE VAMPIRE OBJECTS
+
+// Vampires
+// Root Node
+const originalVampire = new Vampire("Original", 0);
+
+// Second Tree Layer
+const ansel = new Vampire("Ansel", 1);
+const bart = new Vampire("Bart", 2);
+
+// Third Tree Layer
+const elgort = new Vampire("Elgort", 4);
+const sarah = new Vampire("Sarah", 5);
+
+// Fourth Tree Layer
+const andrew = new Vampire("Andrew", 7);
+
+
+// POPULATE THE TREE
+
+// Link the second layer to the root node.
+originalVampire.addOffspring(ansel);
+originalVampire.addOffspring(bart);
+
+// Link the third layer to the second layer.
+ansel.addOffspring(elgort);
+ansel.addOffspring(sarah);
+
+// Link the fourth layer to the third layer.
+elgort.addOffspring(andrew);
+
 
 module.exports = Vampire;
 
