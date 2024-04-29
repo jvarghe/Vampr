@@ -72,9 +72,19 @@ class Vampire {
   }
 
 
-  // Returns the number of vampires away from the original vampire this vampire is
+  // Returns the number of vampires away from the original vampire this vampire
+  // is
   get numberOfVampiresFromOriginal() {
 
+    let numberOfVampiresFromOriginal = 0;
+    let currentVampire = this;
+
+    while(currentVampire.creator !== null) {
+      currentVampire = currentVampire.creator;
+      numberOfVampiresFromOriginal++;
+    }
+
+    return numberOfVampiresFromOriginal;
   }
 
 
