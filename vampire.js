@@ -79,7 +79,7 @@ class Vampire {
     let numberOfVampiresFromOriginal = 0;
     let currentVampire = this;
 
-    while(currentVampire.creator !== null) {
+    while (currentVampire.creator !== null) {
       currentVampire = currentVampire.creator;
       numberOfVampiresFromOriginal++;
     }
@@ -88,8 +88,33 @@ class Vampire {
   }
 
 
-  // Returns true if this vampire is more senior than the other vampire. (Who is closer to the original vampire)
+  // Returns true if this vampire is more senior than the other vampire. (Who
+  // is closer to the original vampire)
   isMoreSeniorThan(vampire) {
+
+    const currentVampiresDistanceFromOriginal = this.numberOfVampiresFromOriginal;
+    const otherVampiresDistanceFromOriginal = vampire.numberOfVampiresFromOriginal;
+
+
+    // Check if the two vampires are siblings...
+    if ((currentVampiresDistanceFromOriginal === otherVampiresDistanceFromOriginal)) {
+
+      // If so, check if the current vampire is older than the other.
+      if (this.yearConverted < vampire.yearConverted) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+
+    // If the vampires have different ages, check if the current vampire is
+    // older than the other.
+    if ((currentVampiresDistanceFromOriginal < otherVampiresDistanceFromOriginal)) {
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
@@ -97,13 +122,15 @@ class Vampire {
   /** Stretch **/
 
   // Returns the closest common ancestor of two vampires.
-  // The closest common anscestor should be the more senior vampire if a direct ancestor is used.
+  // The closest common anscestor should be the more senior vampire if a direct
+  // ancestor is used.
   // For example:
-  // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
-  // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
+  // * when comparing Ansel and Sarah, Ansel is the closest common ancestor.
+  // * when comparing Ansel and Andrew, Ansel is the closest common ancestor.
   closestCommonAncestor(vampire) {
 
   }
+
 }
 
 
@@ -143,6 +170,13 @@ elgort.addOffspring(andrew);
 // DRIVER CODE:
 // console.log(originalVampire.addOffspring(ansel));
 // console.log(ansel.numberOfOffspring);
+// console.log(elgort.numberOfVampiresFromOriginal);
+
+console.log(originalVampire);
+console.log(sarah.isMoreSeniorThan(andrew));
+
+console.log(originalVampire.isMoreSeniorThan(andrew));
+
 
 
 module.exports = Vampire;
