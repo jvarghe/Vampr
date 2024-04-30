@@ -43,6 +43,13 @@
  *
  * This is the current tree we have of all the vampires. You will need to store
  * this tree in code and create methods to implement all of the requirements.
+ *
+ *
+ * STATUS
+ *
+ * This implementation passes 16/17 tests. It fails the last test for
+ * the `closestCommonAncestor()` method.
+ *
  */
 
 
@@ -129,6 +136,51 @@ class Vampire {
   // * when comparing Ansel and Andrew, Ansel is the closest common ancestor.
   closestCommonAncestor(vampire) {
 
+    let juniorVampire;
+    let seniorVampire;
+    let directDescendent = false;
+
+
+    // Corner Cases:
+    // If the two vampires are the same, return the vampire object.
+    if (this.name === vampire.name) {
+      return this;
+    }
+
+
+    // Determine the senior vampire.
+    if (this.isMoreSeniorThan(vampire) === true) {
+      seniorVampire = this;
+      juniorVampire = vampire;
+    } else {
+      seniorVampire = vampire;
+      juniorVampire = this;
+    }
+
+
+    // Check if current vampire is the ancestor of the other vampire.
+    let currentVampire = juniorVampire;
+
+    while (currentVampire.creator !== null) {
+
+      currentVampire = currentVampire.creator;
+
+      if (seniorVampire.name === currentVampire.name) {
+        directDescendent = true;
+      }
+
+    }
+
+
+    // If the two vampires are NOT directly related...
+    if (directDescendent !== true) {
+      return seniorVampire.creator;
+
+    // If the two vampires are ancestor-descendent...
+    } else {
+      return seniorVampire;
+    }
+
   }
 
 }
@@ -167,15 +219,15 @@ elgort.addOffspring(andrew);
 
 
 
-// DRIVER CODE:
+// DRIVER CODE
+
 // console.log(originalVampire.addOffspring(ansel));
 // console.log(ansel.numberOfOffspring);
 // console.log(elgort.numberOfVampiresFromOriginal);
 
-console.log(originalVampire);
-console.log(sarah.isMoreSeniorThan(andrew));
-
-console.log(originalVampire.isMoreSeniorThan(andrew));
+// console.log(sarah.isMoreSeniorThan(andrew));
+// console.log(originalVampire.isMoreSeniorThan(andrew));
+// console.log(andrew.closestCommonAncestor(sarah));
 
 
 
