@@ -29,6 +29,13 @@
  *     aspects of our previous "Org Chart" exercise that we can use in the
  *     development of Vampr.
  *
+ *   * Count the total number of descendents that a vampire has.
+ *
+ *   * Search for a descendant of a vampire with a specific name.
+ *
+ *   * Get a list of all the of millennial descendents that a vampire has
+ *     (vampires that were converted after 1980)
+ *
  * The vampire's lineage is best represented by a tree structure:
  *
  *
@@ -180,6 +187,25 @@ class Vampire {
     } else {
       return seniorVampire;
     }
+
+  }
+
+
+  // Searches for a descendant with the given name. Returns the vampire object
+  // with that name, or `null` if no vampire exists with that name.
+  vampireWithName(name) {
+
+  }
+
+
+  // Returns the total number of vampires that exist
+  get totalDescendents() {
+
+  }
+
+
+  // Returns an array of all the vampires that were converted after 1980
+  get allMillennialVampires() {
 
   }
 
