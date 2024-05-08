@@ -29,6 +29,13 @@
  *     aspects of our previous "Org Chart" exercise that we can use in the
  *     development of Vampr.
  *
+ *   * Count the total number of descendents that a vampire has.
+ *
+ *   * Search for a descendant of a vampire with a specific name.
+ *
+ *   * Get a list of all the of millennial descendents that a vampire has
+ *     (vampires that were converted after 1980)
+ *
  * The vampire's lineage is best represented by a tree structure:
  *
  *
@@ -176,10 +183,86 @@ class Vampire {
     if (directDescendent !== true) {
       return seniorVampire.creator;
 
-    // If the two vampires are ancestor-descendent...
+      // If the two vampires are ancestor-descendent...
     } else {
       return seniorVampire;
     }
+
+  }
+
+
+  // Searches for a descendant with the given name. Returns the vampire object
+  // with that name, or `null` if no vampire exists with that name.
+  vampireWithName(vampireName) {
+
+    // Check if the given name is the same as the current vampire. If so, return
+    // the current vampire.
+    if (this.name === vampireName) {
+      return this;
+    }
+
+    // If the given name is a different vampire, iterate over its offspring
+    //  array; search to see if there is a descendant with the given name.
+    for (let child of this.offspring) {
+
+      // Recursive Case: Recursively call this method on each child.
+      let descendantVampire = child.vampireWithName(vampireName);
+
+      // If a descendant was found and stored in `vampire`, return it.
+      if (descendantVampire) {
+        return descendantVampire;
+      }
+
+    }
+
+    // Base Case: If nothing is found, return `null`.
+    return null;
+
+  }
+
+
+  // Returns the total number of descendants that this vampire has. Note: the
+  // function name is misspelled, but it is left like that because the test
+  // uses that name.
+  get totalDescendents() {
+
+    // Problem: Making `descendantCount` = 1 or appending 1 to the return value
+    // of this method causes the test to fail. The return value will be off by
+    // one. It's not clear why adding one within the for-loop returns the
+    // correct value.
+    let descendantCount = 0;
+
+    for (let child of this.offspring) {
+
+      // Recursive Case: Recursively call this method on each child.
+      descendantCount += child.totalDescendents + 1;
+
+    }
+
+    return descendantCount;
+
+  }
+
+
+  // Returns an array of all the vampires that were converted after 1980.
+  get allMillennialVampires() {
+
+    let millennialVampires = [];
+
+    // Check if the current vampire is a millennial. If so, add it to the list.
+    if (this.yearConverted > 1980) {
+      millennialVampires.push(this);
+    }
+
+
+    // Recursive Case: Recursively call this method on each child vampire.
+    for (let child of this.offspring) {
+      millennialVampires = millennialVampires.concat(child.allMillennialVampires);
+    }
+
+    // Base Case: If nothing is found, do nothing.
+
+    return millennialVampires;
 
   }
 
@@ -190,18 +273,18 @@ class Vampire {
 
 // Vampires
 // Root Node
-const originalVampire = new Vampire("Original", 0);
+const originalVampire = new Vampire("Original", 1957);
 
 // Second Tree Layer
-const ansel = new Vampire("Ansel", 1);
-const bart = new Vampire("Bart", 2);
+const ansel = new Vampire("Ansel", 1975);
+const bart = new Vampire("Bart", 1977);
 
 // Third Tree Layer
-const elgort = new Vampire("Elgort", 4);
-const sarah = new Vampire("Sarah", 5);
+const elgort = new Vampire("Elgort", 1984);
+const sarah = new Vampire("Sarah", 1985);
 
 // Fourth Tree Layer
-const andrew = new Vampire("Andrew", 7);
+const andrew = new Vampire("Andrew", 1993);
 
 
 // POPULATE THE TREE
@@ -229,6 +312,9 @@ elgort.addOffspring(andrew);
 // console.log(originalVampire.isMoreSeniorThan(andrew));
 // console.log(andrew.closestCommonAncestor(sarah));
 
+// console.log(ansel.vampireWithName("Andrew"));
+// console.log(originalVampire.totalDescendents);
+// console.log(originalVampire.allMillennialVampires);
 
 
 module.exports = Vampire;
