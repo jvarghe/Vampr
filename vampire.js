@@ -264,7 +264,6 @@ class Vampire {
 
     return millennialVampires;
 
-
   }
 
 }
@@ -314,9 +313,7 @@ elgort.addOffspring(andrew);
 // console.log(andrew.closestCommonAncestor(sarah));
 
 // console.log(ansel.vampireWithName("Andrew"));
-
 // console.log(originalVampire.totalDescendents);
-
 // console.log(originalVampire.allMillennialVampires);
 
 
