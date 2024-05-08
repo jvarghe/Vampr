@@ -221,8 +221,25 @@ class Vampire {
   }
 
 
-  // Returns the total number of vampires that exist
+  // Returns the total number of descendants that this vampire has. Note: the
+  // function name is misspelled, but it is left like that because the test
+  // uses that name.
   get totalDescendents() {
+
+    // Problem: Making `descendantCount` = 1 or appending 1 to the return value
+    // of this method causes the test to fail. The return value will be off by
+    // one. It's not clear why adding one within the for-loop returns the
+    // correct value.
+    let descendantCount = 0;
+
+    for (let child of this.offspring) {
+
+      // Recursive Case: Recursively call this method on each child.
+      descendantCount += child.totalDescendents + 1;
+
+    }
+
+    return descendantCount;
 
   }
 
@@ -279,6 +296,8 @@ elgort.addOffspring(andrew);
 // console.log(andrew.closestCommonAncestor(sarah));
 
 // console.log(ansel.vampireWithName("Andrew"));
+
+console.log(originalVampire.totalDescendents);
 
 
 module.exports = Vampire;
