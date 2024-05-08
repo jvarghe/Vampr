@@ -193,45 +193,30 @@ class Vampire {
 
   // Searches for a descendant with the given name. Returns the vampire object
   // with that name, or `null` if no vampire exists with that name.
-  vampireWithName(vampire) {
+  vampireWithName(vampireName) {
 
-    let descendantVampire;
-    let seniorVampire;
-
-    // Determine the senior vampire so you know which vampire's sub-tree to
-    // search.
-    if (this.isMoreSeniorThan(vampire) === true) {
-      seniorVampire = this;
-    } else {
-      seniorVampire = vampire;
+    // Check if the given name is the same as the current vampire. If so, return
+    // the current vampire.
+    if (this.name === vampireName) {
+      return this;
     }
 
+    // If the given name is a different vampire, iterate over its offspring
+    //  array; search to see if there is a descendant with the given name.
+    for (let child of this.offspring) {
 
-    //  Check if the seniorVampire has offspring. If not, you can end the
-    // function early and return `null`. This also handles cases where vampires
-    // aren't direct descendants.
-    if (seniorVampire.numberOfOffspring === 0) {
-      return null;
-    }
+      // Recursive Case: Recursively call this method on each child.
+      let descendantVampire = child.vampireWithName(vampireName);
 
-
-    // Once all the corner cases are handled, check if the given vampire is a
-    // descendant of the senior vampire. This loop iterates over the senior
-    // vampire's offspring array.
-    for (const vamp of seniorVampire.offspring) {
-
-      if (seniorVampire.name === vamp.name) {
+      // If a descendant was found and stored in `vampire`, return it.
+      if (descendantVampire) {
         return descendantVampire;
       }
 
-      // If no matches are found among the children, recursively search all
-      // their sub-trees, starting with grandchildren.
-      descendantVampire = this.depthFirstTraversal(vampire);
-
     }
 
-
-    return descendantVampire;
+    // Base Case: If nothing is found, return `null`.
+    return null;
 
   }
 
@@ -244,56 +229,6 @@ class Vampire {
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
-
-  }
-
-
-  // Depth first traversal algorithm.
-  depthFirstTraversal(vampire) {
-
-    // My original, failed recursive algorithm:
-
-    // let foundVampire;
-
-    // for (const childNode of this.offspring) {
-
-    //   if (childNode.name === vampire.name) {
-    //     foundVampire = childNode;
-    //     if(foundVampire) return foundVampire;
-    //   } else {
-    //     foundVampire = childNode.depthFirstTraversal(vampire);
-    //   }
-    // }
-    // return foundVampire;
-
-
-    // Recursive Case: If a senior vampire has descendants, traverse the
-    // sub-tree and check if the junior vampire name is found.
-    for (const childNode of this.offspring) {
-
-      // For each child node, iterate over their array of child vampires. For
-      // each child vampire, call this method on it recursively to check if
-      // the its name matches the name we're looking for.
-      const foundVampire = childNode.depthFirstTraversal(vampire);
-
-      // If checking the child node found a match, break out of the recursive
-      // loop and return the found vampire.
-      if (foundVampire) {
-        return foundVampire;
-      }
-
-      // Compare the child vampire's name to the name you're looking for. Return
-      // it to the recursive caller if they match.
-      if (childNode.name === vampire.name) {
-        return childNode;
-      }
-
-    }
-
-    // Base Case: If there is no sub-tree, do nothing.
-
-    // If traversing this vampire's sub-trees produced no match, return `null`.
-    return null;
 
   }
 
@@ -343,7 +278,7 @@ elgort.addOffspring(andrew);
 // console.log(originalVampire.isMoreSeniorThan(andrew));
 // console.log(andrew.closestCommonAncestor(sarah));
 
-// console.log(bart.vampireWithName(andrew));
+// console.log(ansel.vampireWithName("Andrew"));
 
 
 module.exports = Vampire;
