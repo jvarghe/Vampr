@@ -244,8 +244,26 @@ class Vampire {
   }
 
 
-  // Returns an array of all the vampires that were converted after 1980
+  // Returns an array of all the vampires that were converted after 1980.
   get allMillennialVampires() {
+
+    let millennialVampires = [];
+
+    // Check if the current vampire is a millennial. If so, add it to the list.
+    if (this.yearConverted > 1980) {
+      millennialVampires.push(this);
+    }
+
+
+    // Recursive Case: Recursively call this method on each child vampire.
+    for (let child of this.offspring) {
+      millennialVampires = millennialVampires.concat(child.allMillennialVampires);
+    }
+
+    // Base Case: If nothing is found, do nothing.
+
+    return millennialVampires;
+
 
   }
 
@@ -256,18 +274,18 @@ class Vampire {
 
 // Vampires
 // Root Node
-const originalVampire = new Vampire("Original", 0);
+const originalVampire = new Vampire("Original", 1957);
 
 // Second Tree Layer
-const ansel = new Vampire("Ansel", 1);
-const bart = new Vampire("Bart", 2);
+const ansel = new Vampire("Ansel", 1975);
+const bart = new Vampire("Bart", 1977);
 
 // Third Tree Layer
-const elgort = new Vampire("Elgort", 4);
-const sarah = new Vampire("Sarah", 5);
+const elgort = new Vampire("Elgort", 1984);
+const sarah = new Vampire("Sarah", 1985);
 
 // Fourth Tree Layer
-const andrew = new Vampire("Andrew", 7);
+const andrew = new Vampire("Andrew", 1993);
 
 
 // POPULATE THE TREE
@@ -297,7 +315,9 @@ elgort.addOffspring(andrew);
 
 // console.log(ansel.vampireWithName("Andrew"));
 
-console.log(originalVampire.totalDescendents);
+// console.log(originalVampire.totalDescendents);
+
+// console.log(originalVampire.allMillennialVampires);
 
 
 module.exports = Vampire;
